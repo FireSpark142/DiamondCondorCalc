@@ -35,23 +35,18 @@ f1df = pd.DataFrame(f1json_response['options']['option'])
 f1dfg = pd.DataFrame.from_records(f1df['greeks'])
 f1dfc = pd.concat([f1df,f1dfg],axis=1)
 
-import pandas as pd
-
 f2df = pd.DataFrame(f2json_response['options']['option'])
 f2dfg = pd.DataFrame.from_records(f2df['greeks'])
 f2dfc = pd.concat([f2df,f2dfg],axis=1)
 
 import requests
 
-response = requests.get('https://api.tradier.com/v1/markets/quotes',
-    params={'symbols': ticker, 'greeks': 'false'},
-    headers={'Authorization': 'Bearer <>', 'Accept': 'application/json'}
-)
-json_response = response.json()
-print(response.status_code)
-print(json_response)
-
-import pandas as pd
+    response = requests.get('https://api.tradier.com/v1/markets/quotes',
+        params={'symbols': ticker, 'greeks': 'false'},
+        headers={'Authorization': 'Bearer <token>', 'Accept': 'application/json'}
+    )
+    json_response = response.json()
+    import pandas as pd
 
 df = pd.DataFrame(json_response['quotes']['quote'],index=[0])
 
