@@ -1,4 +1,5 @@
 def hello_world(request):
+    request_json = request.get_json()
     if request.args and 'ticker' in request.args:
         return main(request.args.get('ticker'))
     else:
@@ -73,8 +74,8 @@ def main(input):
     def cash_covered_put_price(input):
         for i, v, k in zip(f1dfc['strike'], f1dfc['option_type'], f1dfc['ask']):
             if i > input and v == 'put':
-                x = [i, k]
-                return x
+                z = [i, k]
+                return z
 
 
     def optimal_long_put():
@@ -103,13 +104,8 @@ def main(input):
 
 
     t = cover_call_strike_price()
-    u = cash_covered_put_price(cover_call_strike_price()[1])
+    u = cash_covered_put_price(cover_call_strike_price()[0])
     v = optimal_long_put()['strike']
     w = optimal_long_put()['ask']
-
-    return(print(f' Covered Call Strike for {ticker}: {t[0]}, ask price = ${t[1]} USD, cost per option = ${t[1] * 100}  USD'),
-    print(f' Cash Covered Put Strike for {ticker}: {u[0]}, ask price = ${u[1]} USD, cost per option = ${u[1] * 100}  USD'),
-    print(f' Optimal Long Put Strike for {ticker}: {v}, ask price = ${w} USD, cost per option = ${w * 100}  USD'),
-    print(f' Total cost of options premium = ${(t[1] + u[1] + w) * 100} USD'),
-    print(f' Total cost of stock purchase = ${(lsv) * 200} USD'),
-    print(f' Total cost: ${((t[1] + u[1] + w) * 100) + ((lsv) * 200)} USD'))
+    x = f' Covered Call Strike for {ticker}: {t[0]} || Cash Covered Put Strike for {ticker}: {u[0]} || Optimal Long Put Strike for {ticker}: {v} || Total cost of stock purchase = ${(lsv) * 200} USD || Total cost: ${((t[1] + u[1] + w) * 100) + ((lsv) * 200)} USD'
+    return x
